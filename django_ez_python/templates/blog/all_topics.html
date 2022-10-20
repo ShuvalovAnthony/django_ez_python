@@ -1,0 +1,44 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+<h3>Is {{ request.user.username }} user authorized? - {{ request.user.is_authenticated }}</h3>
+
+{% if allowed_viewer == request.user %}
+
+<h5>{{ allowed_viewer }}, {{ request.user }}</h5>
+
+
+{{ aboba|lower }}
+
+{% comment %}
+{% if "hello" in greetings %}
+  Aleikum Asalyam
+{% endif %}
+{% endcomment %}
+
+
+{{ simple_html_el|safe }}
+
+
+{% for topic in all_topics %}
+{% if topic.is_published %}
+<div class="container-md">
+    <div class="card text-center" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title"><font color="red">{{ topic.title }}</font></h5>
+            <p class="card-text">{{ topic.author }}</p>
+            <p class="card-text">{{ topic.content|truncatewords:30 }}</p>
+            <a href="http://127.0.0.1:8000/blog/topics_by_category/{{ topic.category.title }}" class="btn btn-info">{{ topic.category }}</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endfor %}
+
+{% endif %}
+
+
+
+{% endblock %}
