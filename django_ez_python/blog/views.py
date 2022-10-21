@@ -3,8 +3,8 @@ from .models import Category, Topic
 from django.contrib.auth.models import User
 
 
-def blog_home(requset):
-    return render(requset, 'blog/blog_home.html')
+def blog_home(request):
+    return render(request, 'blog/blog_home.html')
 
 def get_all_topics(request):
     all_topics = Topic.objects.all()
