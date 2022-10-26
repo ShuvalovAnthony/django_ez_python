@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Category, Topic
+from .models import Author, Category, Topic
 from django.contrib.auth.models import User
 
 
@@ -36,3 +36,5 @@ def get_topics_by_category(request, category):
         return render(request, 'blog/wrong_category.html')
 
 
+def test(request):
+    author = Author.objects.filter(username='aboba') # -> queryset
