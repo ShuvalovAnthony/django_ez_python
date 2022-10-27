@@ -4,9 +4,14 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView
 
 
-
 def blog_home(request):
     return render(request, 'blog/blog_home.html')
+
+
+class AuthorDetailView(DetailView):
+    model = Author
+    template_name = "author/author_detail.html"
+    context_object_name = "author"
 
 
 class TopicListView(ListView):
@@ -20,6 +25,25 @@ class TopicListView(ListView):
         data['all_genres'] = Genre.objects.all()
         data['greetings'] = 'Hello user!'
         return data
+
+
+def get_topics_by_category(request, category):
+    #Electronics
+    try:
+        asked_category = Category.objects.get(title=category)
+        topics_by_category = Topic.objects.filter(category=asked_category)
+        return render(request, 'blog/get_topics_by_category.html',
+        {'topics_by_category': topics_by_category})
+    except: # aboba
+        return render(request, 'blog/wrong_category.html')
+
+
+def test(request):
+    author = Author.objects.filter(username='aboba') # -> queryset
+
+
+
+
 
 # def get_all_topics(request):
 #     all_topics = Topic.objects.all()
@@ -40,16 +64,16 @@ class TopicListView(ListView):
 #         })
 
 
-def get_topics_by_category(request, category):
-    #Electronics
-    try:
-        asked_category = Category.objects.get(title=category)
-        topics_by_category = Topic.objects.filter(category=asked_category)
-        return render(request, 'blog/get_topics_by_category.html',
-        {'topics_by_category': topics_by_category})
-    except: # aboba
-        return render(request, 'blog/wrong_category.html')
-
-
-def test(request):
-    author = Author.objects.filter(username='aboba') # -> queryset
+# def author_profile(request, author_id):
+#     try:
+#         author = Author.objects.get(pk=author_id)
+#         error_msg = ""
+#     except:
+#         author = None
+#         error_msg = "Author doesnt exist"
+#     return render(request, 'author/author_detail.html',
+#     {
+#         'author': author,
+#         'error': error_msg,
+#         }
+#         )
