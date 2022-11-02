@@ -1,7 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Author, Category, Topic, Genre
 from django.contrib.auth.models import User
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .forms import RegisterUserForm
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+from django.contrib.auth import logout
+
 
 
 def blog_home(request):
@@ -27,6 +33,21 @@ class TopicListView(ListView):
         return data
 
 
+class RegisterUser(CreateView):
+    form_class = UserCreationForm
+    template_name = 'auth/register.html'
+    success_url =  '/blog'
+
+
+class LoginUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'auth/login.html'
+
+    def get_success_url(self) -> str:
+        return reverse_lazy('blog_home')
+
+
+
 def get_topics_by_category(request, category):
     #Electronics
     try:
@@ -42,7 +63,8 @@ def test(request):
     author = Author.objects.filter(username='aboba') # -> queryset
 
 
-
+def logout_view(request):
+    logout(request)
 
 
 # def get_all_topics(request):

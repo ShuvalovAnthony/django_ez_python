@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div class="container-fluid text-center mt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-4">
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="text" name="username" required="" id="id_username" maxlength="150" class="form-control"
+                    placeholder="Username" aria-label="default input example">
+                <br>
+                <input type="password" name="password1" required="" class="form-control" id="id_password1" placeholder="Password">
+                <br>
+                <input type="password" name="password2" required="" class="form-control" id="id_password2" placeholder="Repeat password">
+                <br>
+                <button class="btn btn-primary" type="submit">Регистрация</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
