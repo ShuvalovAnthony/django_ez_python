@@ -3,20 +3,19 @@
 {% block content %}
 <div class="container-fluid text-center mt-5">
     <div class="row justify-content-md-center">
-        <form method="POST">
-            {% csrf_token %}
+        <div class="col-4">
+            <form method="POST">
+                {% csrf_token %}
 
-
-            {% for f in form %}
-            {{ f.errors }}
-            <label class="form-label" for="{{ f.id_for_label }}">{{f.label}} </label>
-            <br>
-            {{f}}
-            <br>
-            {% endfor %}
-            <button type="submit">Войти</button>
-        </form>
+                <input type="text" name="username" required="" id="id_username" maxlength="150" class="form-control"
+                    placeholder="Username" aria-label="default input example">
+                <br>
+                <input type="password" name="password" required="" class="form-control" id="id_password"
+                    placeholder="Password">
+                <br>
+                <button class="btn btn-primary" type="submit">Войти</button>
+            </form>
+        </div>
     </div>
 </div>
-
 {% endblock %}
