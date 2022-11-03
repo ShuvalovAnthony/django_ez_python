@@ -3,7 +3,8 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 from blog.views import RegisterUser, LoginUser, logout
 from django.contrib.auth.views import LogoutView
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Main URLS
 urlpatterns = [
@@ -13,7 +14,7 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 '127.0.0.1:8000/blog/home'
