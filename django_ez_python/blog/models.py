@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Topic(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Заголовок')
+    title = models.CharField(max_length=100, verbose_name='Заголовок', unique=True)
     content = models.TextField(max_length=1000)
     author = models.ForeignKey('Author', on_delete=models.PROTECT, verbose_name='Автор')
     category = models.ForeignKey('Category', on_delete=models.PROTECT)
@@ -20,7 +20,7 @@ class Topic(models.Model):
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
 
     def __str__(self) -> str:
         return self.title

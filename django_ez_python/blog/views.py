@@ -7,6 +7,7 @@ from .forms import RegisterUserForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
+from django.http import Http404
 
 
 
@@ -14,13 +15,16 @@ def blog_home(request):
     return render(request, 'blog/blog_home.html')
 
 
-class AuthorDetailView(DetailView):
+class AuthorDetailView(DetailView): # detailView - single object objects.get() 
     model = Author
     template_name = "author/author_detail.html"
     context_object_name = "author"
 
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
 
-class TopicListView(ListView):
+
+class TopicListView(ListView): # ListView - objecst.all() objects.filter() - queryset
     model = Topic
     template_name = "blog/all_topics.html"
     context_object_name = "all_topics"
@@ -31,6 +35,27 @@ class TopicListView(ListView):
         data['all_genres'] = Genre.objects.all()
         data['greetings'] = 'Hello user!'
         return data
+
+
+class TopicByCategory(ListView):
+    model = Topic
+    template_name = "blog/get_topics_by_category.html"
+    context_object_name = "topics_by_category"
+
+    def get(self, request, *args, **kwargs): # blog/topic_byt_category/Python - Python (конец url) - получаем из
+        request_category = kwargs['category']  # из метода get 
+        try:
+            self.category_id = Category.objects.get(title=request_category).id
+        except:
+            raise Http404("Url does not exist") 
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['topics_by_category'] = Topic.objects.filter(category=self.category_id)
+        return data
+        
+
 
 
 class RegisterUser(CreateView):
