@@ -20,8 +20,14 @@ class AuthorDetailView(DetailView): # detailView - single object objects.get()
     template_name = "author/author_detail.html"
     context_object_name = "author"
 
+    def get(self, request, *args, **kwargs):
+        self.author_pk = kwargs['pk']
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
+        data['topics'] = Topic.objects.filter(author=self.author_pk)
+        return data
 
 
 class TopicListView(ListView): # ListView - objecst.all() objects.filter() - queryset
@@ -54,8 +60,6 @@ class TopicByCategory(ListView):
         data = super().get_context_data(**kwargs)
         data['topics_by_category'] = Topic.objects.filter(category=self.category_id)
         return data
-        
-
 
 
 class RegisterUser(CreateView):
