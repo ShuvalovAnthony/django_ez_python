@@ -1,63 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends '_base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Django_ez_python</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
-</head>
+{% block content %}
 
-<body>
-    {% include "header.html" %}
-    <p></p>
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col"></div>
+{% if author %}
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="https://images-platform.99static.com//tv7ao_BU0a9jwTpkm0QbtKcJutw=/323x2892:1198x3767/fit-in/500x500/projects-files/47/4736/473689/3add6b67-53ac-4077-a7d1-99ac65d92f11.png" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ author.name }}</h5>
+                <p class="card-text">From {{ author.country }}. Writing in {{ author.genre }} genre.</p>
+                <p class="card-text"><small class="text-muted">Born {{ author.birthday }}</small></p>
 
-                <div class="col-8">
-
-                    {% if author %}
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="https://images-platform.99static.com//tv7ao_BU0a9jwTpkm0QbtKcJutw=/323x2892:1198x3767/fit-in/500x500/projects-files/47/4736/473689/3add6b67-53ac-4077-a7d1-99ac65d92f11.png"
-                                    class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ author.name }}</h5>
-                                    <p class="card-text">From {{ author.country }}. Writing in {{ author.genre }} genre.
-                                    </p>
-                                    <p class="card-text"><small class="text-muted">Born {{ author.birthday }}</small>
-                                    </p>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    {% else %}
-
-                    {% endif %}
-
-                </div>
-
-                <div class="col">
-                    <ul class="list-group">
-                        {% for topic in topics %}
-                        <li class="list-group-item">{{ topic.title }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
             </div>
         </div>
 
     </div>
-</body>
+</div>
+{% else %}
+<h1>Author doesnt exist</h1>
+{% endif %}
 
-</html>
+{% endblock %}
+{% block right_frame %}
+<ul class="list-group">
+{% for topic in topics %}
+    <li class="list-group-item">{{ topic.title }}</li>
+    
+{% endfor %}
+</ul>
+{% endblock %}

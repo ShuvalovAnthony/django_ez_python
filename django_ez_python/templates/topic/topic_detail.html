@@ -1,0 +1,36 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col-2">
+        {{topic.title}}
+    </div>
+    <div class="col">
+        {{topic.content}}
+    </div>
+    <div class="col-2">
+        {{topic.category}}
+    </div>
+</div>
+<div class="row">
+    
+</div>
+
+<div class="row">
+    
+</div>
+
+<div class="row">
+    {{ topic.author }}
+</div>
+<div class="row">
+    <img src="{{ topic.photo.url }}">
+</div>
+
+
+
+
+{% endblock %}

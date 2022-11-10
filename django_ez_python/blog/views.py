@@ -25,9 +25,15 @@ class AuthorDetailView(DetailView): # detailView - single object objects.get()
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['topics'] = Topic.objects.filter(author=self.author_pk)
+        data = super().get_context_data(**kwargs) # ТОЛЬКО АВТОР
+        data['topics'] = Topic.objects.filter(author=self.author_pk) # по ключу topics - добавляем все статьи автора
         return data
+
+
+class TopicDetailView(DetailView):
+    model = Topic
+    template_name = "topic/topic_detail.html"
+    context_object_name = "topic"
 
 
 class TopicListView(ListView): # ListView - objecst.all() objects.filter() - queryset
