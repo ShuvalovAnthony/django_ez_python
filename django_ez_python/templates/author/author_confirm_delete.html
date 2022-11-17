@@ -1,0 +1,12 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    Are you sure you want to delete "{{ object }}"?
+    {{ form }}
+    <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Отменить</a>
+    <input class="btn btn-danger" type="submit" value="Подтвердить">
+</form>
+
+{% endblock %}

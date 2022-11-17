@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Author, Category, Topic, Genre
 from django.contrib.auth.models import User
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import RegisterUserForm
 from django.contrib.auth.views import LoginView
@@ -11,10 +11,6 @@ from django.http import Http404, HttpResponse
 
 
 
-class AuthorCreateView(CreateView):
-    model = Author
-    fields = ['name', 'nickname', 'genre', 'country', 'birthday']
-    template_name = 'author/author_form.html'
 
 
 
@@ -24,8 +20,28 @@ class CategoryCreateView(CreateView):
     template_name = 'category/category_form.html'
 
 
+
+
 def blog_home(request):
     return render(request, 'blog/blog_home.html')
+
+
+class AuthorDeleteView(DeleteView):
+    model = Author
+    template_name = 'author/author_confirm_delete.html'
+    success_url = reverse_lazy('blog_home')
+
+
+class AuthorUpdateView(UpdateView):
+    model = Author
+    fields = ['name', 'nickname', 'genre', 'country', 'birthday']
+    template_name = 'author/author_form.html'
+
+
+class AuthorCreateView(CreateView):
+    model = Author
+    fields = ['name', 'nickname', 'genre', 'country', 'birthday']
+    template_name = 'author/author_form.html'
 
 
 class AuthorDetailView(DetailView): # detailView - single object objects.get() 
