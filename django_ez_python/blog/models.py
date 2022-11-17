@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+
+
 
 
 class Topic(models.Model):
@@ -25,17 +28,23 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.title
 
+    def get_absolute_url(self):
+        return "/"
+
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
     nickname = models.CharField(max_length=100, blank=True)
     genre = models.ForeignKey('Genre', on_delete = models.CASCADE, blank=True, null=True)
-    birthday = models.DateField()
+    birthday = models.DateField(default=timezone.now())
     country = models.ForeignKey('Country', on_delete = models.CASCADE, blank=True, null=True) #если страна больше не поддерживается, удаляем всех авторов, потом хочу переделать
 
 
     def __str__(self) -> str:
         return self.name
+
+    def get_absolute_url(self):
+        return "/blog/author/%i" % self.id
 
 
 class Genre(models.Model):
@@ -50,3 +59,4 @@ class Country(models.Model):
     
     def __str__(self) -> str:
         return self.title
+

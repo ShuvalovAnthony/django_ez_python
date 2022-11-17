@@ -7,8 +7,21 @@ from .forms import RegisterUserForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
+
+
+class AuthorCreateView(CreateView):
+    model = Author
+    fields = ['name', 'nickname', 'genre', 'country', 'birthday']
+    template_name = 'author/author_form.html'
+
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    fields = ['title']
+    template_name = 'category/category_form.html'
 
 
 def blog_home(request):
@@ -100,6 +113,9 @@ def test(request):
 
 def logout_view(request):
     logout(request)
+
+
+
 
 
 # def get_all_topics(request):

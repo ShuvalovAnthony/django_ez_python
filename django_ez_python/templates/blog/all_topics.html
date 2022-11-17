@@ -13,7 +13,7 @@
     {% if topic.is_published %}
     <div class="card">
         <div class="card-header">
-            <a href="/blog/author/{{ topic.author.id }}" class="btn btn-primary">{{ topic.author }}</a>
+            <a href="{{ topic.author.get_absolute_url }}" class="btn btn-primary">{{ topic.author }}</a>
         </div>
         <div class="card-body">
             <h5 class="card-title">{{ topic.title }}</h5>
