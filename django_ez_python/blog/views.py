@@ -3,7 +3,7 @@ from .models import Author, Category, Topic, Genre
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from .forms import RegisterUserForm
+from .forms import *
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
@@ -40,8 +40,9 @@ class AuthorUpdateView(UpdateView):
 
 class AuthorCreateView(CreateView):
     model = Author
-    fields = ['name', 'nickname', 'genre', 'country', 'birthday']
+    form_class = AuthorForm
     template_name = 'author/author_form.html'
+    
 
 
 class AuthorDetailView(DetailView): # detailView - single object objects.get() 
