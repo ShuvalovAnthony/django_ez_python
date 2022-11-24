@@ -8,7 +8,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth import logout
 from django.http import Http404, HttpResponse
-
+from django.urls import reverse
 
 
 
@@ -42,6 +42,9 @@ class AuthorCreateView(CreateView):
     model = Author
     form_class = AuthorForm
     template_name = 'author/author_form.html'
+
+    def get_success_url(self) -> str:
+        return reverse('author_create')
     
 
 

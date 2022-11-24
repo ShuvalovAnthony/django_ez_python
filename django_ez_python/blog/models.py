@@ -32,6 +32,17 @@ class Category(models.Model):
         return "/"
 
 
+class Hashtag(models.Model):
+    tag = models.CharField(max_length=100, unique=True)
+    cat = models.ManyToManyField(Category, related_name='category')
+
+    def __str__(self) -> str:
+        return self.tag
+
+    def get_absolute_url(self):
+        return "/"
+
+
 class Author(models.Model):
     name = models.CharField(max_length=100)
     nickname = models.CharField(max_length=100, blank=True)
@@ -59,4 +70,3 @@ class Country(models.Model):
     
     def __str__(self) -> str:
         return self.title
-

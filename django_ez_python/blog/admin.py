@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Topic, Author, Category, Genre, Country
+from .models import *
 from django import forms
 from django.utils.safestring import mark_safe
 from .forms import AuthorForm
@@ -33,3 +33,4 @@ admin.site.register(Category)
 admin.site.register(Genre)
 admin.site.register(Country)
 admin.site.register(Author, AuthorAdmin)
+admin.site.register(Hashtag)
