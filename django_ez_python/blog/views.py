@@ -9,9 +9,21 @@ from django.urls import reverse_lazy
 from django.contrib.auth import logout
 from django.http import Http404, HttpResponse
 from django.urls import reverse
+from .utils import generate_password
 
 
-
+def test(request):
+    input_data = request.POST.get('data')
+    if input_data: password = generate_password(input_data)
+    else: password = None
+    
+    return render(
+        request,
+        'pass/pass_gen.html',
+        context={
+            'password': password,
+            'pass_len': str(input_data),
+            })
 
 
 class CategoryCreateView(CreateView):
@@ -125,10 +137,6 @@ def get_topics_by_category(request, category):
         {'topics_by_category': topics_by_category})
     except: # aboba
         return render(request, 'blog/wrong_category.html')
-
-
-def test(request):
-    author = Author.objects.filter(username='aboba') # -> queryset
 
 
 def logout_view(request):

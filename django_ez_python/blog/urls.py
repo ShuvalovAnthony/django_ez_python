@@ -20,6 +20,9 @@ urlpatterns = [
     
     path('topics_by_category/<str:category>/', TopicByCategory.as_view(),
      name='topics_by_category'),
+
+
+    path('test/', test, name='test'),
 ]
 
 # '127.0.0.1:8000/blog/all_topics'

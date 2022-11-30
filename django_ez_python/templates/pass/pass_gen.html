@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+{% if password %}
+<h4>Your password {{ password }}</h4>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="hidden" value={{pass_len}} name="data">
+    <button type="submit" class="btn btn-primary">Другой</button>
+</form>
+
+
+{% else %}
+<form method="POST">
+    {% csrf_token %}
+    <input name="data">
+    <button type="submit" class="btn btn-primary">Сгенерировать пароль</button>
+</form>
+
+{% endif %}
+{% endblock %}
