@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-
+{% load custom_tags %}
 {% block content %}
 
 {% if author %}
@@ -27,9 +27,14 @@
 {% endblock %}
 {% block right_frame %}
 <ul class="list-group">
-{% for topic in topics %}
+{% authors_topics id=author.id as tp %}
+{% for topic in tp %}
     <li class="list-group-item">{{ topic.title }}</li>
     
 {% endfor %}
 </ul>
+<ul class="list-group">
+    
+</ul>
+
 {% endblock %}
