@@ -4,26 +4,38 @@
 
 
 
-    <h3>Is {{ request.user.username }} user authorized? - {{ request.user.is_authenticated }}</h3>
+<h3>Is {{ request.user.username }} user authorized? - {{ request.user.is_authenticated }}</h3>
 
-    <h1>{{ greetings }}</h1>
-
-    {% if allowed_viewer == request.user %}
-    {% for topic in all_topics %}
-    {% if topic.is_published %}
-    <div class="card">
-        <div class="card-header">
-            <a href="{{ topic.author.get_absolute_url }}" class="btn btn-primary">{{ topic.author }}</a>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{ topic.title }}</h5>
-            <p class="card-text">{{ topic.content|truncatechars:160 }}</p>
-            <a href="{% url 'topic' topic.id %}" class="btn btn-primary">Read topic</a>
-        </div>
+<h1>{{ greetings }}</h1>
+{% all_authors as q %}
+<div class="row pb-5">
+    <div class="col-2">
+        <a href="?author_id=0" class="btn btn-primary">All authors</a>
     </div>
-    </br>
-    {% endif %}
+    {% for author in q %}
+    <div class="col-2">
+        <a href="?author_id={{ author.id }}" class="btn btn-primary">{{ author.name }}</a>
+    </div>
     {% endfor %}
+</div>
+
+
+{% if allowed_viewer == request.user %}
+{% for topic in all_topics %}
+{% if topic.is_published %}
+<div class="card">
+    <div class="card-header">
+        <a href="{{ topic.author.get_absolute_url }}" class="btn btn-primary">{{ topic.author }}</a>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ topic.title }}</h5>
+        <p class="card-text">{{ topic.content|truncatechars:160|underscore }}</p>
+        <a href="{% url 'topic' topic.id %}" class="btn btn-primary">Read topic</a>
+    </div>
+</div>
+</br>
+{% endif %}
+{% endfor %}
 
 
 

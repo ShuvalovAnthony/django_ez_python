@@ -86,10 +86,15 @@ class TopicListView(ListView): # ListView - objecst.all() objects.filter() - que
     template_name = "blog/all_topics.html"
     context_object_name = "all_topics"
 
+    def get(self, request, *args, **kwargs) -> HttpResponse:
+        self.author_id = int(request.GET.get('author_id', '0'))
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+        if self.author_id :
+            data['all_topics'] = data['all_topics'].filter(author=self.author_id)
         data['allowed_viewer'] = User.objects.get(pk=1)
-        data['all_genres'] = Genre.objects.all()
         data['greetings'] = 'Hello user!'
         return data
 
