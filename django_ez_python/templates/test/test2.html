@@ -1,0 +1,27 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+
+<h4>TEST 2 {{ hello }}</h4>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="checkbox" name="checks" value="1" />
+    <input type="checkbox" name="checks" value="2" />
+    <input type="checkbox" name="checks" value="3" />
+    <input type="checkbox" name="checks" value="4" />
+    <button type="submit" class="btn btn-primary">Отправить данные</button>
+</form>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="radio" name="checks" value="1" />
+    <input type="radio" name="checks" value="2" />
+    <input type="radio" name="checks" value="3" />
+    <input type="radio" name="checks" value="4" />
+    <button type="submit" class="btn btn-primary">Отправить данные</button>
+</form>
+{% endblock %}

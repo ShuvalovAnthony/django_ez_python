@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Author, Category, Topic, Genre
 from django.contrib.auth.models import User
+from users.models import CustomUser
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import *
@@ -23,6 +24,16 @@ def test(request):
         context={
             'password': password,
             'pass_len': str(input_data),
+            })
+
+
+def test2(request):
+    print(request.POST.getlist('checks'))
+    return render(
+        request,
+        'test/test2.html',
+        context={
+            'hello': 'hello'
             })
 
 
@@ -94,7 +105,7 @@ class TopicListView(ListView): # ListView - objecst.all() objects.filter() - que
         data = super().get_context_data(**kwargs)
         if self.author_id :
             data['all_topics'] = data['all_topics'].filter(author=self.author_id)
-        data['allowed_viewer'] = User.objects.get(pk=1)
+        data['allowed_viewer'] = CustomUser.objects.get(pk=1)
         data['greetings'] = 'Hello user!'
         return data
 

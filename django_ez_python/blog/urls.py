@@ -23,6 +23,7 @@ urlpatterns = [
 
 
     path('test/', test, name='test'),
+    path('test2/', test2, name='test2'),
 ]
 
 # '127.0.0.1:8000/blog/all_topics'
