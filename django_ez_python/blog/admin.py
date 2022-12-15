@@ -18,7 +18,7 @@ class TopicAdmin(admin.ModelAdmin):
     # list_filter
     readonly_fields = ('create_time', 'update_time', 'get_photo')
     fields = (
-        'title', 'content', 'author',
+        'title', 'content', 'author', 'note',
         'category', 'is_published', 'photo', 'get_photo', 'update_time',
     )
 

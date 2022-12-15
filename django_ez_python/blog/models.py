@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from users.models import CustomUser
+from ckeditor.fields import RichTextField
 
 
 class Topic(models.Model):
@@ -12,6 +13,7 @@ class Topic(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+    note = RichTextField(blank=True) # for ckeditor test
 
     def __str__(self) -> str:
         return self.title

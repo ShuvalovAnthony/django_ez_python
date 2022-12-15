@@ -91,6 +91,11 @@ class TopicDetailView(DetailView):
     template_name = "topic/topic_detail.html"
     context_object_name = "topic"
 
+    def get(self, request, *args, **kwargs):
+        print(self)
+        return super().get(request, *args, **kwargs)
+
+
 
 class TopicListView(ListView): # ListView - objecst.all() objects.filter() - queryset
     model = Topic

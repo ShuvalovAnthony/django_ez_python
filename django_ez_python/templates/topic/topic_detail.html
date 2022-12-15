@@ -9,7 +9,7 @@
         {{topic.title}}
     </div>
     <div class="col">
-        {{topic.content}}
+        {{topic.note|safe}}
     </div>
     <div class="col-2">
         {{topic.category}}
@@ -31,7 +31,6 @@
     <img src="{{ topic.photo.url }}">
 </div>
 {% endif %}
-
 
 
 {% endblock %}
